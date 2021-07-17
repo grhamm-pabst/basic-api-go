@@ -73,15 +73,7 @@ func SetTodoFinished(responseWriter http.ResponseWriter, request *http.Request) 
 
 		}
 
-		updatedTodo := repo.UpdateToFinished(todoUUID)
-
-		jsonBody, err := json.Marshal(updatedTodo)
-		if err != nil {
-			http.Error(responseWriter, "Error parsing response", http.StatusInternalServerError)
-
-		}
-
-		responseWriter.Write(jsonBody)
+		repo.UpdateToFinished(todoUUID)
 
 	} else {
 		http.Error(responseWriter, "", http.StatusMethodNotAllowed)

@@ -2,29 +2,20 @@ package repo
 
 import (
 	"github.com/google/uuid"
+	"grhamm.com/todo/data"
 	"grhamm.com/todo/entity"
 )
 
 var todoList []entity.Todo
 
 func Insert(todo entity.Todo) entity.Todo {
-	todo.Id = uuid.New()
-	todoList = append(todoList, todo)
-
-	return todo
+	return data.InsertTodo(todo)
 }
 
 func Index() []entity.Todo {
-	return todoList
+	return data.FindTodo()
 }
 
-func UpdateToFinished(id uuid.UUID) entity.Todo {
-	for i, todo := range todoList {
-		if id == todo.Id {
-			todoList[i].Finished = true
-			return todoList[i]
-		}
-	}
-
-	return entity.Todo{}
+func UpdateToFinished(id uuid.UUID) {
+	data.SetFinishTodo(id)
 }
